@@ -13,7 +13,7 @@ using SeleniumExtras.WaitHelpers;
 
 namespace AutomationAssignment
 {
-
+//This class uses for start functions
     public class Functions
     {
         IWebDriver driver;
@@ -25,12 +25,12 @@ namespace AutomationAssignment
         {
             this.driver = driver;
         }
-
+       //Open browser - get url from file
         public void OpenBrowser()
         {
             driver.Navigate().GoToUrl(url);
         }
-
+         //Function which run all processes from excel file, and from excel it get all the parameters and values
         public void ActionFunction()
         {
             var sheet = workbook.GetSheetAt(0);
@@ -39,10 +39,10 @@ namespace AutomationAssignment
             for (int i = 1; i < rows+1; i++)
             {
                 DataFormatter formatter = new DataFormatter();
-                int waittime =int.Parse(formatter.FormatCellValue(sheet.GetRow(i).GetCell(1)).Trim());
+                int waittime =int.Parse(formatter.FormatCellValue(sheet.GetRow(i).GetCell(1)).Trim());//Define time until element appears
                 string cssselectorName = formatter.FormatCellValue(sheet.GetRow(i).GetCell(2)).Trim();
-                var op = formatter.FormatCellValue(sheet.GetRow(i).GetCell(3)).Trim();
-                var value = formatter.FormatCellValue(sheet.GetRow(i).GetCell(4)).Trim();
+                var op = formatter.FormatCellValue(sheet.GetRow(i).GetCell(3)).Trim();//The action which active-Click, Set...
+                var value = formatter.FormatCellValue(sheet.GetRow(i).GetCell(4)).Trim();//The data it takes
 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(waittime));
                 wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector(cssselectorName)));
